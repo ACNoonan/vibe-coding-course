@@ -38,6 +38,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     Introduction
                   </Link>
                 </li>
+                <li>
+                  <Link href="/finding-flow" className="block px-2 py-1 rounded hover:bg-gray-200 text-sm">
+                    Finding Flow
+                  </Link>
+                </li>
               </ul>
             </div>
 

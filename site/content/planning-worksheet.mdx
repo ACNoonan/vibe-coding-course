@@ -5,27 +5,29 @@ description: A systematic approach to planning your MVP and generating productio
 
 # Planning & Development Worksheet
 
-A structured worksheet to help you move from idea to implementation with AI assistance.
+**A structured worksheet to help you move from idea to implementation with AI assistance.**
+
+Work through each section to define your problem, map your user journey, identify your data requirements, and generate the code. Use this during planning sessions or as a reference when prompting AI tools.
 
 ---
 
-# Quick Flow
+## Quick Flow
 
-1. Capture the persona, problem, and desired outcome.
-2. Map the 5–8 step user journey.
-3. List the data entities pulled from that journey.
-4. Use the prompts below (Cursor-ready) to generate schema, API, and UI.
-5. Log findings, blockers, and next steps for the retrospective.
+1. Capture the persona, problem, and desired outcome
+2. Map the 5–8 step user journey
+3. List the data entities from that journey
+4. Use the prompts below to generate schema, API, and UI
+5. Log findings, blockers, and next steps
 
 ---
 
-# Planning
+## Part 1: Planning
 
-## Step 1: Problem & Persona
+### Step 1: Problem and Persona
 
-### Who has the problem?
+#### Who has the problem?
 
-Be specific about the person, not just "users"
+Be specific about the person, not just "users."
 
 **Your Answer:**
 
@@ -42,7 +44,7 @@ Busy real estate investors who review 50+ properties per week
 
 </details>
 
-### What's the problem?
+#### What's the problem?
 
 One sentence. What pain are they experiencing?
 
@@ -61,7 +63,7 @@ They waste hours reviewing listings that don't meet their criteria
 
 </details>
 
-### What's the desired outcome?
+#### What's the desired outcome?
 
 What does success look like for them?
 
@@ -82,9 +84,7 @@ Quickly identify the 3-5 properties worth scheduling a viewing
 
 ---
 
-## Step 2: MVP user journey
-
-### MVP user journey (the UX flow)
+### Step 2: MVP User Journey
 
 Write 5-8 steps describing exactly what happens. Focus on the WHAT, not the HOW.
 
@@ -102,7 +102,7 @@ Write 5-8 steps describing exactly what happens. Focus on the WHAT, not the HOW.
 ```
 
 <details>
-<summary>Example journey (Team Lunch Coordinator)</summary>
+<summary>Example: Team Lunch Coordinator</summary>
 
 ```text
 1. Person creates an event: "Friday Team Lunch"
@@ -118,13 +118,11 @@ Write 5-8 steps describing exactly what happens. Focus on the WHAT, not the HOW.
 
 ---
 
-## Step 3: Data requirements
-
-### Data requirements
+### Step 3: Data Requirements
 
 For each entity, list: **Entity Name | Key Attributes | Relationships**
 
-**Instructions:** Look at your user journey and extract the NOUNS (Person, Place, Thing). These become your data entities.
+Look at your user journey and extract the NOUNS (Person, Place, Thing). These become your data entities.
 
 **Your Data Requirements:**
 
@@ -141,7 +139,7 @@ Relationships:
 ```
 
 <details>
-<summary>Example (Team Lunch Coordinator)</summary>
+<summary>Example: Team Lunch Coordinator</summary>
 
 ```text
 ENTITY: events
@@ -176,17 +174,15 @@ Relationships: Belongs to event
 
 ---
 
-# Development
+## Part 2: Development
 
-## Step 1: Database Schema Generation
+### Step 1: Database Schema Generation
 
-### 🎯 Purpose
+**Purpose:** Generate complete SQL schema for Supabase that you can paste into the SQL Editor.
 
-Generate complete SQL schema for Supabase that you can copy/paste into the SQL Editor.
+**Prompt Template:**
 
-### 📋 Prompt template
-
-Copy this template and fill in YOUR information from Planning Steps 1-3:
+Copy this template and fill in your information from Planning Steps 1-3:
 
 ```text
 You are a senior database architect specializing in PostgreSQL and Supabase.
@@ -233,15 +229,13 @@ Include the updated_at trigger function and triggers for all tables.
 
 ---
 
-## Step 2: User Interface Generation
+### Step 2: User Interface Generation
 
-### 🎯 Purpose
+**Purpose:** Generate a complete Next.js application that implements your user journey.
 
-Generate a complete Next.js application using V0 or Cursor that implements your user journey.
+**Prompt Template:**
 
-### 📋 Prompt template
-
-Copy this template and fill in YOUR information:
+Copy this template and fill in your information:
 
 ```text
 You are an expert frontend engineer specializing in Next.js, React, TypeScript, and Tailwind CSS.
@@ -327,9 +321,9 @@ The code should be immediately deployable to Vercel and connectable to my Supaba
 
 ---
 
-## Step 3: Connecting Your Application
+### Step 3: Connecting Your Application
 
-### After generating code, you need to connect it to your Supabase database:
+After generating code, connect it to your Supabase database:
 
 **In Supabase:**
 
@@ -379,7 +373,8 @@ Use this to inform your prompts:
 - [ ] Mobile-first or desktop-first? _______________
 
 **MVP Simplifications:**
-What are we explicitly NOT building in v1?
+
+What are you explicitly NOT building in v1?
 
 ```text
 Example: "No user authentication yet—just unique URLs"
@@ -393,16 +388,16 @@ Your simplifications:
 
 ---
 
-## 🎯 Quick Reference: When to Move Fast vs Slow
+## When to Move Fast vs. Slow
 
-### MOVE FAST ⚡
+### Move Fast
 
 - Tweaking UI colors, spacing, layouts
 - Implementing features you've done before
 - Trying different approaches to the same problem
 - Deploying changes to test
 
-### MOVE SLOW 🐢
+### Move Slow
 
 - Planning your data model
 - Adding new features you haven't built before
@@ -410,11 +405,11 @@ Your simplifications:
 - Setting up authentication or payment systems
 - Performance optimization
 
-**Remember:** Things will break MORE than they work. That's normal. Flow comes from knowing when to trust the AI and when to slow down and think.
+Things will break more than they work. That's normal. Flow comes from knowing when to trust the AI and when to slow down and think.
 
 ---
 
-## Notes & Learnings
+## Notes and Learnings
 
 Use this space to capture what works for you:
 
@@ -430,7 +425,6 @@ What I'll do differently next time:
 
 Questions to research later:
 
-
 ```
 
 ---
@@ -439,22 +433,16 @@ Questions to research later:
 
 Once your MVP is working, consider:
 
-1. **Add Authentication** - Convert emails to user accounts
-2. **Improve AI Features** - Replace placeholders with real AI
-3. **Add Payment Processing** - If needed for your model
-4. **Performance Optimization** - Database indexes, caching
-5. **Error Handling** - Better user feedback
-6. **Testing** - Automated tests for core flows
-7. **Analytics** - Track how people use your app
+1. **Add Authentication** — Convert emails to user accounts
+2. **Improve AI Features** — Replace placeholders with real AI
+3. **Add Payment Processing** — If needed for your model
+4. **Performance Optimization** — Database indexes, caching
+5. **Error Handling** — Better user feedback
+6. **Testing** — Automated tests for core flows
+7. **Analytics** — Track how people use your app
 
 ---
 
-**Remember the Flow State Formula:**
+Ready to execute? Continue to [Build with AI Flow](/build-with-ai-flow).
 
-1. ✅ Clear Goals (your user journey)
-2. ⚡ Fast Feedback (deploy early, test often)
-3. 🎯 Challenge vs Skill (start simple, build complexity)
-4. 🧘 Action = Awareness (stay present with the code)
-5. 🎉 Intrinsically Rewarding (celebrate small wins!)
-
-Good luck on your build! 🚀
+Need to debug something? See [Troubleshooting & Logs](/troubleshooting).

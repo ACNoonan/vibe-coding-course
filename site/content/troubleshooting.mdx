@@ -7,58 +7,93 @@ description: Quick pointers to the logs and first-fix steps for Cursor, GitHub, 
 
 **When something breaks, go straight to the right log, grab the error, and decide the next action.**
 
+Keep this page open while you build. Fast feedback beats frantic guessing—let the logs guide the fix.
+
 ---
 
 ## Cursor IDE
 
-- **Where:** `Cmd/Ctrl + L` → right panel chat history, or `Cmd/Ctrl + \`` for the integrated terminal.
-- **Look for:** Last failed command, model response errors, stack traces in the terminal.
-- **First fix steps:**
-  - Re-run the command with `--verbose` if available (e.g., `npm run dev -- --verbose`).
-  - Highlight the error message and ask Cursor: “Explain this stack trace and propose a fix.”
-  - If Cursor keeps guessing, paste the relevant file section and restate the requirement plainly.
+**Where to look:** `Cmd/Ctrl + L` opens the chat panel history. `Cmd/Ctrl + `` ` opens the integrated terminal.
+
+**What to look for:** Last failed command, model response errors, stack traces in the terminal.
+
+**First fix steps:**
+
+1. Re-run the command with `--verbose` if available (e.g., `npm run dev -- --verbose`)
+2. Highlight the error message and ask Cursor: "Explain this stack trace and propose a fix"
+3. If Cursor keeps guessing, paste the relevant file section and restate the requirement plainly
 
 ---
 
-## GitHub (Pull Requests & Actions)
+## GitHub
 
-- **Where:** Repo → **Pull Requests** → select PR → **Checks** tab for Actions logs.
-- **Look for:** Red ❌ steps, especially `build`, `lint`, or `deploy`.
-- **First fix steps:**
-  - Click the failing job → **View raw logs** to copy the exact error.
-  - If lint/test failure, reproduce locally with the same command shown in the log.
-  - For permission or secret issues, confirm the GitHub → Vercel/Supabase integration scopes.
-  - Restart only after you understand the failure—otherwise you’ll burn more time waiting.
+**Where to look:** Repo → **Pull Requests** → select PR → **Checks** tab for Actions logs.
+
+**What to look for:** Red ❌ steps, especially `build`, `lint`, or `deploy`.
+
+**First fix steps:**
+
+1. Click the failing job → **View raw logs** to copy the exact error
+2. If lint/test failure, reproduce locally with the same command shown in the log
+3. For permission or secret issues, confirm the GitHub → Vercel/Supabase integration scopes
+4. Restart only after you understand the failure—otherwise you'll burn time waiting
 
 ---
 
-## Vercel Deployments
+## Vercel
 
-- **Where:** Vercel dashboard → your project → **Deployments** → select the failing build → **Logs**.
-- **Look for:** Build step errors (dependency install, Next.js build) or runtime errors after deploy.
-- **First fix steps:**
-  - Match the failing step with the corresponding local command (`pnpm install`, `pnpm build`, etc.).
-  - Check **Environment Variables** tab—missing env vars are the #1 production issue.
-  - If runtime errors appear post-deploy, open the deployment URL with `?vercelToolbarCode=...` for live logs, or run `vercel logs <deployment-url>`.
+**Where to look:** Vercel dashboard → your project → **Deployments** → select the failing build → **Logs**.
+
+**What to look for:** Build step errors (dependency install, Next.js build) or runtime errors after deploy.
+
+**First fix steps:**
+
+1. Match the failing step with the corresponding local command (`pnpm install`, `pnpm build`, etc.)
+2. Check **Environment Variables** tab—missing env vars are the #1 production issue
+3. If runtime errors appear post-deploy, run `vercel logs <deployment-url>` or open the deployment URL with browser dev tools
 
 ---
 
 ## Supabase
 
-- **Where:** Supabase dashboard → project → **Logs** (top nav) or **Table Editor / SQL** for schema errors.
-- **Look for:** API errors (Auth, Functions), Postgres errors, rate limit warnings.
-- **First fix steps:**
-  - For migration failures, run `supabase db push` locally and watch the terminal output.
-  - Database errors often reference a specific table/column—jump to that migration file and verify schema.
-  - Auth/function issues: open **Authentication → Providers** or **Edge Functions → Logs** for more context.
-  - If you broke local dev, reset with `supabase db reset` (warn team before wiping data).
+**Where to look:** Supabase dashboard → project → **Logs** (top nav) or **Table Editor / SQL** for schema errors.
+
+**What to look for:** API errors (Auth, Functions), Postgres errors, rate limit warnings.
+
+**First fix steps:**
+
+1. For migration failures, run `supabase db push` locally and watch the terminal output
+2. Database errors often reference a specific table/column—jump to that migration file and verify schema
+3. Auth/function issues: open **Authentication → Providers** or **Edge Functions → Logs** for more context
+4. If you broke local dev, reset with `supabase db reset` (warn team before wiping data)
 
 ---
 
-## When in Doubt
+## General Debugging Process
 
-1. Capture the exact error message and where it appeared.
-2. Note what changed right before the failure.
-3. Share both in Cursor or with your team and propose one next experiment.
+When you're stuck:
 
-Fast feedback beats frantic guessing—let the logs guide the fix.
+1. **Capture the exact error message** and where it appeared
+2. **Note what changed** right before the failure
+3. **Share both** in Cursor or with your team
+4. **Propose one hypothesis** and one experiment to test it
+
+Don't guess randomly. Form a hypothesis, test it, and iterate.
+
+---
+
+## Common Issues Quick Reference
+
+| Symptom | Likely Cause | Fix |
+|---------|--------------|-----|
+| "Unauthorized" or 401 errors | Missing env vars or RLS blocking | Check env vars; add RLS policies or disable temporarily |
+| Build fails on Vercel but works locally | Missing env vars on Vercel | Add all `NEXT_PUBLIC_*` vars in Vercel dashboard |
+| Supabase query returns empty | RLS enabled without policies | Add `allow select` policy or disable RLS for testing |
+| Git push rejected | Remote has changes you don't | Run `git pull` first, resolve conflicts |
+| "Module not found" errors | Missing dependency | Run `npm install` or `pnpm install` |
+
+---
+
+Still stuck? Check the [CLI Services](/advanced/cli-services) page for command references.
+
+Ready to continue building? Return to [Build with AI Flow](/build-with-ai-flow).

@@ -5,32 +5,32 @@ description: Run the Cursor-first development loop from planning to deploy durin
 
 # Build with AI Flow
 
-**Use this run sheet while you teach.** It keeps everyone in the same Cursor-guided loop: plan, prompt, implement, verify.
+**Use this run sheet while building.** It keeps you in a consistent Cursor-guided loop: plan, prompt, implement, verify.
 
 ---
 
 ## Quick Run Sheet
 
-1. **Frame the task** — Re-state the user story or bug in one sentence.
-2. **Prep Cursor** — Open the repo, highlight key files, feed the goal + constraints.
-3. **Generate plan** — Ask for a minimal change list; confirm or trim.
-4. **Apply changes** — Let Cursor write files, review diff together, iterate fast.
-5. **Verify** — Run local command or deployment check; log issues in [Troubleshooting & Logs](/troubleshooting).
+1. **Frame the task** — Restate the user story or bug in one sentence
+2. **Prep Cursor** — Open the repo, highlight key files, feed the goal and constraints
+3. **Generate plan** — Ask for a minimal change list; confirm or trim
+4. **Apply changes** — Let Cursor write files, review diff together, iterate fast
+5. **Verify** — Run local command or deployment check; log issues in [Troubleshooting](/troubleshooting)
 
 Repeat until the user story is complete and merged.
 
 ---
 
-## 1. Kickoff & Planning
+## 1. Kickoff and Planning
 
-- Pull from `main` and run the project. Confirm everyone is on the same commit.
-- Review the worksheet outputs from [Planning & Development](/planning-worksheet) to anchor scope.
-- In Cursor chat paste the current objective and any guardrails (tech stack, UX must-haves, data constraints).
+- Pull from `main` and run the project. Confirm you're on the latest commit.
+- Review the worksheet outputs from [Planning Worksheet](/planning-worksheet) to anchor scope.
+- In Cursor chat, paste the current objective and any guardrails (tech stack, UX must-haves, data constraints).
 
-**Prompt starter**
+**Prompt starter:**
 
 ```text
-We are continuing the Team Lunch Coordinator app. Current status: [brief summary].
+We are continuing the [Project Name] app. Current status: [brief summary].
 Objective: [single user story].
 Constraints: [bullets].
 Return: a short implementation plan with files to touch, pre-checks, and verifications.
@@ -41,8 +41,8 @@ Return: a short implementation plan with files to touch, pre-checks, and verific
 ## 2. Structure the Work
 
 - Use the AI plan as a checklist; keep only the steps you truly need.
-- Assign owners: one person drives Cursor, one observes/testing, others check docs or schema.
-- Capture new tasks or risks in the worksheet backlog so nothing is forgotten.
+- Assign roles if working in a group: one person drives Cursor, one tests, others check docs or schema.
+- Capture new tasks or risks in your worksheet backlog so nothing is forgotten.
 
 **Checkpoint:** Plan fits on one screen, every step maps to a repo change or validation.
 
@@ -54,29 +54,37 @@ Return: a short implementation plan with files to touch, pre-checks, and verific
 - Keep prompts tight: what changed, what to create, expected output format.
 - Let Cursor write, then immediately scan the diff for misalignments. Reject and re-prompt quickly if it strays.
 
-**When Cursor guesses wrong**
+**When Cursor guesses wrong:**
 
-1. Explain the mismatch (“We need Supabase Row Level Security, not fake auth.”).
-2. Paste the correct snippet or docs link.
-3. Re-run with the clarified constraint.
-
----
-
-## 4. Test & Iterate
-
-- After each meaningful change, run the smallest verification possible:
-  - `npm run dev` or `vercel dev` for frontend
-  - `supabase db diff` / `db push` for schema
-  - Unit or integration tests if available
-- Note any failing command, then jump to the matching section in [Troubleshooting & Logs](/troubleshooting).
-- Capture resolved issues in the lesson debrief so students build a troubleshooting habit.
+1. Explain the mismatch ("We need Supabase Row Level Security, not fake auth.")
+2. Paste the correct snippet or docs link
+3. Re-run with the clarified constraint
 
 ---
 
-## 5. Merge & Deploy
+## 4. Test and Iterate
 
-- Once the story works locally, create a focused commit (`git commit -m "feat: add RSVP form validation"`).
-- Push and open a pull request; review line-by-line with the group.
+After each meaningful change, run the smallest verification possible:
+
+- `npm run dev` or `vercel dev` for frontend
+- `supabase db diff` / `db push` for schema
+- Unit or integration tests if available
+
+Note any failing command, then jump to the matching section in [Troubleshooting](/troubleshooting).
+
+Capture resolved issues so you build a troubleshooting habit over time.
+
+---
+
+## 5. Merge and Deploy
+
+- Once the story works locally, create a focused commit:
+
+```bash
+git commit -m "feat: add RSVP form validation"
+```
+
+- Push and open a pull request; review line-by-line.
 - Merge to `main` when approved. Let Vercel auto-deploy or run `vercel --prod`.
 - Celebrate the win, then queue the next objective.
 
@@ -84,7 +92,7 @@ Return: a short implementation plan with files to touch, pre-checks, and verific
 
 ## Sample Prompts Library
 
-**Generate Supabase migration**
+### Generate Supabase Migration
 
 ```text
 You are designing a PostgreSQL migration for Supabase.
@@ -93,7 +101,7 @@ Include indexes for lookups by `event_id`, set defaults, and enable RLS (policie
 Return only SQL.
 ```
 
-**Cursor UI change**
+### Update a UI Component
 
 ```text
 We added Supabase restaurant preferences. Update `components/RestaurantForm.tsx`
@@ -101,17 +109,32 @@ to display existing preferences and add a toggle for `requires_accessibility`.
 Keep styling consistent with Tailwind classes already in the file.
 ```
 
-Keep adding winning prompts here so each cohort benefits from the last.
+Keep adding winning prompts here so each session benefits from the last.
 
 ---
 
 ## Timeboxing Tips
 
-- **15 minutes** — Plan + prep prompts.
-- **25 minutes** — Implement with Cursor.
-- **10 minutes** — Verify, document, push.
-- Adjust the timer but keep the rhythm; flow comes from short feedback loops.
+| Phase | Time |
+|-------|------|
+| Plan + prep prompts | 15 minutes |
+| Implement with Cursor | 25 minutes |
+| Verify, document, push | 10 minutes |
+
+Adjust the timer but keep the rhythm. Flow comes from short feedback loops.
 
 ---
 
-Stay in the loop: plan with intention, prompt with clarity, verify relentlessly. Cursor becomes the accelerator, not the driver.
+## Key Principles
+
+- **Plan with intention** — Know what you're building before you prompt
+- **Prompt with clarity** — Be specific about constraints and expected output
+- **Verify relentlessly** — Don't trust; confirm
+
+Cursor becomes the accelerator, not the driver. You stay in control.
+
+---
+
+Ready to debug? See [Troubleshooting & Logs](/troubleshooting).
+
+Need CLI commands? Check [CLI Services](/advanced/cli-services).

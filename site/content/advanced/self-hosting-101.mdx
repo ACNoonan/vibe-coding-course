@@ -3,27 +3,33 @@ title: Self-Hosting 101
 description: Move from managed hosting to self-hosting on your own AWS EC2 instance.
 ---
 
-# Self-Hosting 101 (Advanced Setup)
+# Self-Hosting 101
 
-**Own the infrastructure when you graduate from Vercel’s free tier.** Follow the checklist to spin up an EC2 box, deploy manually with `pnpm`, and keep it running.
+**Own the infrastructure when you graduate from Vercel's free tier.** Follow this checklist to spin up an EC2 box, deploy manually with `pnpm`, and keep it running.
 
 ---
 
 ## Quick Checklist
 
-1. Confirm GitHub, Git, Node.js, Supabase access from [Dev Environment Setup](/dev-environment-setup).
-2. Install `pnpm` and prove the app builds locally.
-3. Create an AWS account and launch a Ubuntu EC2 instance.
-4. SSH in, install Node.js + pnpm, clone your repo.
-5. `pnpm install`, `pnpm build`, `pnpm start` on the server.
-6. Add PM2 (optional) and wire up a custom domain if needed.
+1. Confirm GitHub, Git, Node.js, Supabase access from [Dev Environment Setup](/dev-environment-setup)
+2. Install `pnpm` and prove the app builds locally
+3. Create an AWS account and launch a Ubuntu EC2 instance
+4. SSH in, install Node.js + pnpm, clone your repo
+5. `pnpm install`, `pnpm build`, `pnpm start` on the server
+6. Add PM2 (optional) and wire up a custom domain if needed
 
 ---
 
 ## 1. Local Pre-Flight
 
-- Install pnpm once: `npm install -g pnpm` → verify with `pnpm --version`.
-- From your project root:
+Install pnpm once:
+
+```bash
+npm install -g pnpm
+pnpm --version
+```
+
+From your project root:
 
 ```bash
 pnpm install
@@ -31,22 +37,22 @@ pnpm build
 pnpm start   # visit http://localhost:3000
 ```
 
-- Commit and push the working state to GitHub so the server can pull it.
+Commit and push the working state to GitHub so the server can pull it.
 
 ---
 
-## 2. AWS Account & Instance
+## 2. AWS Account and Instance
 
-1. Sign in at [aws.amazon.com](https://aws.amazon.com) → choose the Free Tier.
+1. Sign in at [aws.amazon.com](https://aws.amazon.com) and choose the Free Tier
 2. Search for **EC2** → **Launch instance** with:
-   - Name `nextjs-server`
-   - Ubuntu 24.04 LTS
-   - `t2.micro` (Free Tier)
-   - New key pair (`.pem` download)
-   - Allow HTTP (80) and HTTPS (443)
-3. Wait for the instance to boot, copy the **Public IPv4 DNS**.
+   - Name: `nextjs-server`
+   - OS: Ubuntu 24.04 LTS
+   - Instance type: `t2.micro` (Free Tier)
+   - Create a new key pair (`.pem` download)
+   - Allow HTTP (80) and HTTPS (443) in security group
+3. Wait for the instance to boot, then copy the **Public IPv4 DNS**
 
-**SSH in:**
+### SSH into Your Server
 
 ```bash
 chmod 400 your-key.pem
@@ -68,7 +74,7 @@ sudo npm install -g pnpm
 node --version && pnpm --version
 ```
 
-Store environment variables (Supabase keys, etc.) in a `.env` file or the shell profile; keep secrets out of git.
+Store environment variables (Supabase keys, etc.) in a `.env` file or the shell profile. Keep secrets out of git.
 
 ---
 
@@ -83,54 +89,62 @@ pnpm build
 pnpm start
 ```
 
-Visit `http://<your-public-dns>` in the browser—your Next.js app should load. Use `Ctrl + C` to stop the process.
+Visit `http://<your-public-dns>` in the browser. Your Next.js app should load. Use `Ctrl + C` to stop the process.
 
 ---
 
-## 5. Keep It Running (PM2)
+## 5. Keep It Running with PM2
 
 ```bash
 sudo npm install -g pm2
 pm2 start "pnpm start" --name "nextjs-app"
 pm2 save
-pm2 startup   # follow the printed instructions once
+pm2 startup   # follow the printed instructions
 ```
 
-Useful checks:
+### Useful PM2 Commands
 
-- `pm2 status` — ensure the process is online
-- `pm2 logs nextjs-app` — view runtime logs
-- `sudo reboot` → `pm2 resurrect` (if needed after reboot)
-
----
-
-## 6. Optional: Custom Domain
-
-1. Buy a domain (Namecheap, etc.).
-2. In AWS Route 53 → Hosted Zone → create an **A record** pointing to the EC2 public IP.
-3. Update nameservers with your registrar to the ones Route 53 provides.
-4. Consider adding Nginx + SSL (Let’s Encrypt) once traffic increases.
+| Command | Purpose |
+|---------|---------|
+| `pm2 status` | Ensure the process is online |
+| `pm2 logs nextjs-app` | View runtime logs |
+| `pm2 resurrect` | Restore after reboot |
 
 ---
 
-## Validation Loop
+## 6. Custom Domain (Optional)
 
-| Stage | Command | What to check |
-| --- | --- | --- |
-| Local | `pnpm dev` | UI works while coding |
+1. Buy a domain (Namecheap, etc.)
+2. In AWS Route 53 → Hosted Zone → create an **A record** pointing to the EC2 public IP
+3. Update nameservers with your registrar to the ones Route 53 provides
+4. Consider adding Nginx + SSL (Let's Encrypt) once traffic increases
+
+---
+
+## Validation Checklist
+
+| Stage | Command | What to Check |
+|-------|---------|---------------|
+| Local dev | `pnpm dev` | UI works while coding |
 | Local production | `pnpm build && pnpm start` | Bundled app renders |
 | Remote build | `pnpm install && pnpm build` | Dependencies available |
 | Remote runtime | `pm2 status` | App stays online after deploy |
 
-Log any failures in [Troubleshooting & Logs](/troubleshooting) with the command you ran and the error snippet.
+Log any failures in [Troubleshooting](/troubleshooting) with the command you ran and the error snippet.
 
 ---
 
 ## Practice Challenge
 
-1. Create a test Next.js app with `pnpm create next-app`.
-2. Push it to GitHub and deploy to EC2 using the flow above.
-3. Add a `/status` route that prints environment info.
-4. Confirm you can reach `/status` from the public URL.
+1. Create a test Next.js app with `pnpm create next-app`
+2. Push it to GitHub and deploy to EC2 using the flow above
+3. Add a `/status` route that prints environment info
+4. Confirm you can reach `/status` from the public URL
 
 You now control the full stack—from prompts to production hardware.
+
+---
+
+Need CLI command references? See [CLI Services](/advanced/cli-services).
+
+Back to the main workflow? Return to [Build with AI Flow](/build-with-ai-flow).

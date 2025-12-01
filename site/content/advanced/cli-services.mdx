@@ -1,15 +1,15 @@
 ---
-title: CLI Services & Advanced Dev Environment
+title: CLI Services
 description: Git fundamentals, Supabase CLI, Vercel CLI, and development workflows for building full-stack applications.
 ---
 
-# CLI Services: Advanced Dev Environment Setup
+# CLI Services
 
 **Keep this page open while you work.** It shows the daily loop and deeper commands when you need them.
 
 ---
 
-## Daily Workflow Snapshot
+## Daily Workflow
 
 ```bash
 git pull
@@ -26,21 +26,26 @@ vercel --prod      # when ready for prod
 
 ## Git Essentials
 
-- `git pull` — sync before you touch code
-- `git status` — check what changed
-- `git add .` + `git commit -m "..."` — save grouped work
-- `git push` — share with GitHub / trigger Vercel
+### Core Commands
 
-**Common fixes**
+| Command | Purpose |
+|---------|---------|
+| `git pull` | Sync before you touch code |
+| `git status` | Check what changed |
+| `git add .` | Stage all changes |
+| `git commit -m "..."` | Save grouped work |
+| `git push` | Share with GitHub / trigger Vercel |
+
+### Common Fixes
 
 | Situation | Command |
-| --- | --- |
+|-----------|---------|
 | Merge conflict | `git pull`, resolve files, `git add .`, `git commit` |
 | Undo uncommitted file | `git restore path/to/file` |
 | Fix last commit message | `git commit --amend -m "new message"` |
 
 <details>
-<summary>Need first-time repo setup?</summary>
+<summary>First-time repo setup</summary>
 
 ```bash
 git init
@@ -56,14 +61,24 @@ git push -u origin main
 
 ## Supabase CLI
 
-- `supabase login` (one-time) → `supabase link --project-ref <ref>`
-- `supabase migration new <name>` — scaffold SQL file
-- `supabase db push` — apply migrations to remote
-- `supabase db pull` — sync remote schema back to files
-- `supabase db diff` — compare local vs. remote (requires Docker for full local diff)
-- `supabase db shell` — run ad-hoc SQL queries
+### Setup
 
-**Quick workflow**
+```bash
+supabase login
+supabase link --project-ref <ref>
+```
+
+### Common Commands
+
+| Command | Purpose |
+|---------|---------|
+| `supabase migration new <name>` | Scaffold SQL file |
+| `supabase db push` | Apply migrations to remote |
+| `supabase db pull` | Sync remote schema back to files |
+| `supabase db diff` | Compare local vs. remote (requires Docker) |
+| `supabase db shell` | Run ad-hoc SQL queries |
+
+### Quick Migration Workflow
 
 ```bash
 supabase migration new add_tasks_table
@@ -88,18 +103,30 @@ supabase stop      # shut down local services
 
 ## Vercel CLI
 
-- `npm install -g vercel` (once) → `vercel login`
-- `vercel` — link project + deploy preview
-- `vercel --prod` — push to production manually
-- `vercel dev` — run Next.js locally with Vercel settings
-- `vercel logs <deployment-url>` — view production/runtime errors
+### Setup
+
+```bash
+npm install -g vercel
+vercel login
+```
+
+### Common Commands
+
+| Command | Purpose |
+|---------|---------|
+| `vercel` | Link project + deploy preview |
+| `vercel --prod` | Push to production manually |
+| `vercel dev` | Run Next.js locally with Vercel settings |
+| `vercel logs <url>` | View production/runtime errors |
 
 <details>
-<summary>Environment variables & settings</summary>
+<summary>Environment variables and settings</summary>
 
-- Pull config locally: `vercel pull`
-- Manage env vars: `vercel env pull .env.production`
-- List projects: `vercel ls`
+```bash
+vercel pull              # Download project settings
+vercel env pull .env     # Get env vars locally
+vercel ls                # List projects
+```
 
 </details>
 
@@ -107,17 +134,32 @@ supabase stop      # shut down local services
 
 ## Cursor IDE Tips
 
-- Open terminal: `Cmd/Ctrl + \``  
-- Launch project from shell: `cursor .`
-- Quick commands: `Cmd/Ctrl + K` (inline chat), `Cmd/Ctrl + L` (side panel chat), `Cmd/Ctrl + Shift + P` (command palette)
-- When Cursor writes code:
-  1. Read the diff
-  2. Reject if off-track
-  3. Re-prompt with clarifications or paste existing context
+### Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Cmd/Ctrl + `` ` | Open terminal |
+| `Cmd/Ctrl + K` | Inline chat |
+| `Cmd/Ctrl + L` | Side panel chat |
+| `Cmd/Ctrl + Shift + P` | Command palette |
+
+### Working with AI Code
+
+1. Read the diff before accepting
+2. Reject if off-track
+3. Re-prompt with clarifications or paste existing context
+
+### Open Project from Terminal
+
+```bash
+cursor .
+```
 
 ---
 
 ## Practice Loop
+
+Test your setup with this sequence:
 
 1. `git pull`
 2. `supabase migration new add_example`
@@ -128,4 +170,10 @@ supabase stop      # shut down local services
 7. `git push`
 8. `vercel --prod`
 
-If any step fails, capture the error and jump to [Troubleshooting & Logs](/troubleshooting).
+If any step fails, capture the error and check [Troubleshooting](/troubleshooting).
+
+---
+
+Want to deploy to your own server? See [Self-Hosting 101](/advanced/self-hosting-101).
+
+Back to the main workflow? Return to [Build with AI Flow](/build-with-ai-flow).

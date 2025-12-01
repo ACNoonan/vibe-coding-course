@@ -5,27 +5,27 @@ description: Create accounts and install tools so you can develop, deploy, and c
 
 # Dev Environment Setup
 
-**Tools:** GitHub · Git · Node.js · Vercel · Supabase · Cursor IDE
+**Get your tools and accounts ready so you can develop, deploy, and collaborate.**
 
-**Goal:** Create accounts and install tools so you can develop, deploy, and collaborate using your GitHub identity.
+This page walks you through setting up GitHub, Git, Node.js, Vercel, Supabase, and Cursor IDE. All other tools connect through GitHub, so we start there.
 
 ---
 
-## ✅ SECTION 1 — Create Your Core Account (GitHub)
+## 1. Create Your GitHub Account
 
 All other tools will connect to GitHub, so start here.
 
-### Steps
-
-- [ ] Go to [**https://github.com/**](https://github.com/) → click **Sign up**
-- [ ] Create a **username, email, password**
+- [ ] Go to [github.com](https://github.com/) and click **Sign up**
+- [ ] Create a username, email, and password
 - [ ] Verify your email (check your inbox and click the GitHub link)
-- [ ] (Optional but helpful) Add a profile photo and full name
-- [ ] Stay signed in — you'll use GitHub to log into other tools
+- [ ] (Optional) Add a profile photo and full name
+- [ ] Stay signed in—you'll use GitHub to log into other tools
 
 ---
 
-## ✅ SECTION 2 — Install Git (for local work)
+## 2. Install Git
+
+Git is version control software that tracks changes to your code and syncs with GitHub.
 
 ### macOS
 
@@ -37,9 +37,7 @@ All other tools will connect to GitHub, so start here.
 brew install git
 ```
 
-Verify:
-
-- [ ]
+- [ ] Verify installation:
 
 ```bash
 git --version
@@ -47,16 +45,18 @@ git --version
 
 ### Windows
 
-- [ ] Go to [https://git-scm.com/download/win](https://git-scm.com/download/win)
-- [ ] Run the installer → accept defaults
+- [ ] Go to [git-scm.com/download/win](https://git-scm.com/download/win)
+- [ ] Run the installer and accept defaults
 - [ ] Open **Git Bash** or **PowerShell**
-- [ ] Verify:
+- [ ] Verify installation:
 
 ```bash
 git --version
 ```
 
-### Set Git Identity (same for both)
+### Set Your Git Identity
+
+Run these commands with your name and email (use the same email as your GitHub account):
 
 ```bash
 git config --global user.name "Your Name"
@@ -65,12 +65,14 @@ git config --global user.email "you@example.com"
 
 ---
 
-## ✅ SECTION 3 — Install Node.js (needed for CLI tools)
+## 3. Install Node.js
 
-- [ ] Go to [https://nodejs.org](https://nodejs.org/)
-- [ ] Download **LTS version** (not Current)
-- [ ] Run the installer → accept defaults
-- [ ] Verify:
+Node.js is needed to run JavaScript tools like Next.js and various CLIs.
+
+- [ ] Go to [nodejs.org](https://nodejs.org/)
+- [ ] Download the **LTS version** (not Current)
+- [ ] Run the installer and accept defaults
+- [ ] Verify installation:
 
 ```bash
 node --version
@@ -79,86 +81,99 @@ npm --version
 
 ---
 
-## ✅ SECTION 4 — Register & Connect Vercel (Hosting & Deployments)
+## 4. Set Up Vercel
 
-- [ ] Go to [https://vercel.com/signup](https://vercel.com/signup)
+Vercel hosts your frontend and handles automatic deployments from GitHub.
+
+- [ ] Go to [vercel.com/signup](https://vercel.com/signup)
 - [ ] Click **Continue with GitHub**
 - [ ] Approve GitHub access (so Vercel can see your repos)
-- [ ] In dashboard → **New Project → Import Git Repository** → choose your repo
-- [ ] Click **Deploy**
-- [ ] Once deployed, note your project URL
+- [ ] In the dashboard, click **New Project → Import Git Repository**
+- [ ] Select your repo and click **Deploy**
+- [ ] Note your project URL once deployed
 
-**Optional CLI Setup**
+### Optional: Vercel CLI
 
 ```bash
 npm install -g vercel
 vercel login
 ```
 
-☐ Follow the login prompt in your browser
+Follow the login prompt in your browser.
 
 ---
 
-## ✅ SECTION 5 — Register & Connect Supabase (Database & Auth)
+## 5. Set Up Supabase
 
-- [ ] Go to [https://supabase.com](https://supabase.com/)
-- [ ] Click **Start your project / Sign in** → **Continue with GitHub**
+Supabase provides your PostgreSQL database and authentication.
+
+- [ ] Go to [supabase.com](https://supabase.com/)
+- [ ] Click **Start your project** or **Sign in**, then **Continue with GitHub**
 - [ ] Approve GitHub access
-- [ ] In your dashboard → **New Project** → give it a name
-- [ ] Choose free tier and wait for project creation
+- [ ] In your dashboard, click **New Project** and give it a name
+- [ ] Choose the free tier and wait for project creation
 
-**Optional CLI (mac)**
+### Optional: Supabase CLI
+
+**macOS:**
 
 ```bash
 brew install supabase/tap/supabase
 ```
 
-**Optional CLI (Windows)**
+**Windows:**
 
 ```bash
 npm install -g supabase
 ```
 
-☐ Verify:
+Verify installation:
 
 ```bash
 supabase --version
 ```
 
-**If you plan to run Supabase locally:**
+### For Local Development
 
-→ Install **Docker Desktop** from [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
+If you plan to run Supabase locally, install [Docker Desktop](https://www.docker.com/products/docker-desktop).
 
 ---
 
-## ✅ SECTION 6 — Install Cursor IDE (AI-powered Code Editor)
+## 6. Install Cursor IDE
 
-- [ ] Go to [https://cursor.com](https://cursor.com/)
+Cursor is an AI-powered code editor that will help you generate and refine code.
+
+- [ ] Go to [cursor.com](https://cursor.com/)
 - [ ] Click **Download Cursor**
-- [ ] Install app (mac `.dmg` or Windows `.exe`)
-- [ ] Open Cursor → **Sign in with GitHub**
+- [ ] Install the app (`.dmg` on Mac, `.exe` on Windows)
+- [ ] Open Cursor and **Sign in with GitHub**
 - [ ] Approve GitHub access to enable repo features
 - [ ] Create or open a new project folder
 
 ---
 
-## ✅ SECTION 7 — Verify Everything Works
+## 7. Verify Everything Works
 
-- [ ] Open Terminal or Git Bash
-- [ ] Run these one by one:
+Open Terminal (or Git Bash on Windows) and run these commands one by one:
 
 ```bash
 git --version
 node --version
 npm --version
-vercel --version
-supabase --version
+vercel --version    # if you installed Vercel CLI
+supabase --version  # if you installed Supabase CLI
 ```
 
-- [ ] Open Cursor → confirm you're logged in
-- [ ] Log into Vercel & Supabase → confirm they use your GitHub profile
+Then confirm:
 
-✅ **You're ready to build!**
+- [ ] Cursor is open and you're logged in
+- [ ] Vercel dashboard shows your GitHub profile
+- [ ] Supabase dashboard shows your GitHub profile
+
+**You're ready to build!**
 
 ---
 
+Ready to plan your project? Continue to [Planning Worksheet](/planning-worksheet).
+
+Want to understand the workflow first? Read [Finding Flow](/finding-flow).
